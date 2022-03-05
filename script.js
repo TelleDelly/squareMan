@@ -85,6 +85,14 @@ window.addEventListener('animationend' (e) => {
 })
 */
 
+//Animation list
+const animationList = {
+  'w': 'upshot',
+  'a': 'leftshot',
+  's': 'downshot',
+  'd': 'rightshot',
+}
+
 //Player Object
 const playerObject = document.querySelector('.player-object')
 
@@ -93,6 +101,17 @@ const onMouseMove = (e) => {
   playerObject.style.top = e.pageY + 'px'
 }
 
+const onShootKeyPress = (e) => {
+  if(e.key === 'w' || e.key === 'a' || e.key === 's' || e.key ==='d'){
+    let projectile = document.createElement('div')
+    projectile.classList.add('projectile')
+    projectile.style.animation = `${animationList[e.key]} 1s linear 1`
+    playerObject.appendChild(projectile)
+  }
+
+} 
+
 
 //Event listenters for player object
 document.addEventListener('mousemove', onMouseMove)
+document.addEventListener('keypress', onShootKeyPress)

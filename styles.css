@@ -39,16 +39,16 @@
         transform: translateX(0);
     }
     25%{
-        transform: translateX(15vh);
+        transform: translateX(15vw);
     }
     50%{
-        transform: translateX(60vh);
+        transform: translateX(60vw);
     }
     75%{
-        transform: translateX(105vh);
+        transform: translateX(105vw);
     }
     100%{
-        transform: translateX(110vh);
+        transform: translateX(110vw);
     }
 }
 
@@ -57,16 +57,16 @@
         transform: translateX(0);
     }
     25%{
-        transform: translateX(15vh);
+        transform: translateX(-15vw);
     }
     50%{
-        transform: translateX(60vh);
+        transform: translateX(-60vw);
     }
     75%{
-        transform: translateX(105vh);
+        transform: translateX(-105vw);
     }
     100%{
-        transform: translateX(110vh);
+        transform: translateX(-110vw);
     }
 }
 
@@ -83,5 +83,21 @@ body{
     width: 40px;
     height: 40px;
     background-color: blue;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.player-score{
+    position: absolute;
+    left: 95vw;
+}
+
+.projectile{
+    position: absolute;
+    width: 15px;
+    height: 15px;
+    background-color: black;
 }
 
