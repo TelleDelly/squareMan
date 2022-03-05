@@ -70,3 +70,18 @@
     }
 }
 
+body{
+    background-color: aquamarine;
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+}
+
+.player-object{
+    position: absolute;
+    transform: translate(-50%, -50%);
+    width: 40px;
+    height: 40px;
+    background-color: blue;
+}
+

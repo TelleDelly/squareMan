@@ -63,20 +63,36 @@ window.addEventListener('animationstart' (e)=>{
       if(target intersects player){
         gameover
       }
-    } while(aniamtionend != true)
+    } while(target.aniamtionend != true)
   }
 
   if(projectile){
     if(projectile intersects target){
       target is destroyed
+      score is increased
     }
-  } while(animationend != true)
+  } while(projectile.animationend != true)
 
 })
 
 window.addEventListener('animationend' (e) => {
-
+  if(target){
+    target.animationend = true
+  }
+  if(projectile){
+    projectile.animationend = true
+  }
 })
-
 */
 
+//Player Object
+const playerObject = document.querySelector('.player-object')
+
+const onMouseMove = (e) => {
+  playerObject.style.left = e.pageX + 'px'
+  playerObject.style.top = e.pageY + 'px'
+}
+
+
+//Event listenters for player object
+document.addEventListener('mousemove', onMouseMove)
