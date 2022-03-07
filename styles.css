@@ -70,11 +70,37 @@
     }
 }
 
+@keyframes practiceTarget {
+    0%{
+        transform: translateX(0vw);
+    }
+    25%{
+        transform: translateX(50vw);
+    }
+    50%{
+        transform: translateX(100vw);
+    }
+    75%{
+        transform: translateX(50vw);
+    }
+    100%{
+        transform: translateX(90vw);
+    }
+}
+
 body{
     background-color: aquamarine;
     overflow: hidden;
     margin: 0;
     padding: 0;
+}
+
+.target{
+    transform: translateX(-50%);
+    background-color: purple;
+    height: 35px;
+    width: 35px;
+    animation: practiceTarget 6s linear 1;
 }
 
 .player-object{

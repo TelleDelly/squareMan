@@ -103,15 +103,41 @@ const onMouseMove = (e) => {
 
 const onShootKeyPress = (e) => {
   if(e.key === 'w' || e.key === 'a' || e.key === 's' || e.key ==='d'){
-    let projectile = document.createElement('div')
-    projectile.classList.add('projectile')
-    projectile.style.animation = `${animationList[e.key]} 1s linear 1`
-    playerObject.appendChild(projectile)
+    setTimeout(() => {
+      let projectile = document.createElement('div')
+      projectile.classList.add('projectile')
+      projectile.style.animation = `${animationList[e.key]} 1s linear 1`
+      playerObject.appendChild(projectile)
+    }, 200)
   }
-
 } 
 
 
-//Event listenters for player object
+//Event listenters for player objectw
 document.addEventListener('mousemove', onMouseMove)
 document.addEventListener('keypress', onShootKeyPress)
+
+//Event listener for transitionEnd
+document.addEventListener('animationend',(e) => {
+  if(e.target.classList.contains('projectile')){
+    e.target.remove()
+  }
+  if(e.target.classList.contains('target')){
+    e.target.remove()
+  }
+}) 
+
+//Event listener for transitionStart
+
+document.addEventListener('animationstart', (e) => {
+
+  e.target.requestAnimationFrame(animationTiming)
+
+})
+
+const animationTiming = () => {
+  console.log('moving')
+  requestAnimationFrame(animationTiming)
+}
+
+
