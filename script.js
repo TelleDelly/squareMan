@@ -128,16 +128,46 @@ document.addEventListener('animationend',(e) => {
 }) 
 
 //Event listener for transitionStart
+//I am going to try and use requestAnimationFrame to do all my collision checks
 
-document.addEventListener('animationstart', (e) => {
+const collisionCheck = () => {
+  let targets = document.querySelectorAll('.target')
+  let projectiles = document.querySelectorAll('.projectile')
+  let targetRecs = null
+  let playerRecs = null
+  let projectileRecs = null
+  
+  if(targets.length > 0){
+    targets = [...targets]
+    targetRecs = targets.map((target) => {
+      return target.getBoundingClientRect()
+    })
+  }
 
-  e.target.requestAnimationFrame(animationTiming)
+  if(projectiles.length > 0){
+    projectiles = [...projectiles]
+    projectileRecs = projectiles.map((projectile) => {
+      return projectile.getBoundingClientRect()
+    })
+  }
 
-})
+  playerRecs = playerObject.getBoundingClientRect()
 
-const animationTiming = () => {
-  console.log('moving')
-  requestAnimationFrame(animationTiming)
+  targetRecs.forEach((target) => {
+    if(target.x > playerRecs.x){
+      console.log('passed x')
+    }
+
+    if(target.y > playerRecs.y){
+      console.log('passed y')
+    }
+  })
+
+  window.requestAnimationFrame(collisionCheck)
 }
+
+
+window.requestAnimationFrame(collisionCheck)
+
 
 
