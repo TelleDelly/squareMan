@@ -85,6 +85,36 @@ window.addEventListener('animationend' (e) => {
 })
 */
 
+//GLOBAL STATIC CONSTS
+
+//X viewport range of posible starting and ending positions
+const sXPORTMAX = 85
+const sXPORTMIN = 15
+const eXPORTMAX = 85
+const eXPORTMIN = 15
+
+//Y viewport range of possible starting and ending positions
+const sYPORTMAX = 90
+const sYPORTMIN = 10
+const eYPORTMAX = 90
+const eYPORTMIN = 10
+
+
+
+//GLOBAL VARIABLES FOR COLLISION CHECKER FUNCTION
+let targets = null
+let projectiles = null
+let targetRecs = null
+let playerRecs = null
+let projectileRecs = null
+
+
+//Global variables for creating target function
+const startingPointChoice = [
+  'x','y','oX','oY'
+]
+
+
 //Animation list
 const animationList = {
   'w': 'upshot',
@@ -101,6 +131,8 @@ const player = {
 //Player Object DOM element
 const playerObject = document.querySelector('.player-object')
 
+
+//Event listener callback functions for player object
 const onMouseMove = (e) => {
   playerObject.style.left = e.pageX + 'px'
   playerObject.style.top = e.pageY + 'px'
@@ -132,17 +164,15 @@ document.addEventListener('animationend',(e) => {
   }
 }) 
 
-//Event listener for transitionStart
+
+
 //I am going to try and use requestAnimationFrame to do all my collision checks
 //TODO: Must clean up this function as it will run every single frame refresh
 
 const collisionCheck = () => {
-  let targets = document.querySelectorAll('.target')
-  let projectiles = document.querySelectorAll('.projectile')
-  let targetRecs = null
-  let playerRecs = null
-  let projectileRecs = null
-
+  targets = document.querySelectorAll('.target')
+  projectiles = document.querySelectorAll('.projectile')
+  
   playerRecs = playerObject.getBoundingClientRect()
   
   if(targets.length > 0){
@@ -162,28 +192,19 @@ const collisionCheck = () => {
       projectileRecs = projectiles.map((projectile) => {
         return projectile.getBoundingClientRect()
       })
-      if(targetRecs.length > 0){
-        projectileRecs.forEach((projectile) => {
-          targetRecs.forEach((target, index) => {
-            if((projectile.x < target.right && projectile.y < target.bottom) && (projectile.right > target.x && projectile.bottom > target.y)){
-              targets[index].remove()
-              console.log('target hit by projectile')
-              hitByProjectile()
-            }
-          })
+      projectileRecs.forEach((projectile) => {
+        targetRecs.forEach((target, index) => {
+          if((projectile.x < target.right && projectile.y < target.bottom) && (projectile.right > target.x && projectile.bottom > target.y)){
+            targets[index].remove()
+            // console.log('target hit by projectile')
+            hitByProjectile()
+          }
         })
-      }
+      })
     }
-
-
   }  
-
   window.requestAnimationFrame(collisionCheck)
 }
-
-
-window.requestAnimationFrame(collisionCheck)
-
 
 //Function to call if target is hit by a projectile
 const hitByProjectile = () =>  {
@@ -198,5 +219,38 @@ const hitByTarget = () => {
   gameOverModal.classList.add('game-over-died')
 }
 
+const createATarget = () => {
+  let tempTarget = document.createElement('div')
+  tempTarget.classList.add('target')
 
+}
+
+const keyFrameGenerator = () => {
+  let randStart = randomNumber(3,0)
+  let startingPointDecision = startingPointChoice[randStart]
+  let startingXpoint = null;
+  let endingXpoint = null;
+  let startingYpoint = null;
+  let endingYPoint = null
+
+
+  if(startingPointDecision === startingPointChoice[0] || startingPointDecision === startingPointChoice[2]){
+    startingPoint = randomNumber(sXPORTMAX, sXPORTMIN)
+  }
+
+  if(startingPointDecision === startingPointChoice[1] || startingPointDecision === startingPointChoice[3]){
+
+  }
+  
+}
+
+const randomNumber = (max, min) => {
+  return Math.floor(Math.random() * (max - min + 1) + min)
+}
+
+const runGame = () => {
+  window.requestAnimationFrame(collisionCheck)
+}
+
+runGame()
 
