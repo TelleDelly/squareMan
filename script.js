@@ -129,6 +129,7 @@ document.addEventListener('animationend',(e) => {
 
 //Event listener for transitionStart
 //I am going to try and use requestAnimationFrame to do all my collision checks
+//TODO: Must clean up this function as it will run every single frame refresh
 
 const collisionCheck = () => {
   let targets = document.querySelectorAll('.target')
@@ -136,11 +137,18 @@ const collisionCheck = () => {
   let targetRecs = null
   let playerRecs = null
   let projectileRecs = null
+
+  playerRecs = playerObject.getBoundingClientRect()
   
   if(targets.length > 0){
     targets = [...targets]
     targetRecs = targets.map((target) => {
       return target.getBoundingClientRect()
+    })
+    targetRecs.forEach((target) => {
+      if((playerRecs.x < target.right && playerRecs.y < target.bottom) && (playerRecs.right > target.x && playerRecs.bottom > target.y)){
+        console.log('player hit by target')
+      }
     })
   }
 
@@ -149,19 +157,20 @@ const collisionCheck = () => {
     projectileRecs = projectiles.map((projectile) => {
       return projectile.getBoundingClientRect()
     })
+    if(targetRecs.length > 0){
+      projectileRecs.forEach((projectile) => {
+        targetRecs.forEach((target) => {
+          if((projectile.x < target.right && projectile.y < target.bottom) && (projectile.right > target.x && projectile.bottom > target.y)){
+            console.log('target hit by projectile')
+          }
+        })
+      })
+    }
   }
 
-  playerRecs = playerObject.getBoundingClientRect()
 
-  targetRecs.forEach((target) => {
-    if(target.x > playerRecs.x){
-      console.log('passed x')
-    }
 
-    if(target.y > playerRecs.y){
-      console.log('passed y')
-    }
-  })
+  
 
   window.requestAnimationFrame(collisionCheck)
 }
