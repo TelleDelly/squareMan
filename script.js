@@ -93,7 +93,12 @@ const animationList = {
   'd': 'rightshot',
 }
 
-//Player Object
+//Object for player data
+const player = {
+  score: 0,
+}
+
+//Player Object DOM element
 const playerObject = document.querySelector('.player-object')
 
 const onMouseMove = (e) => {
@@ -147,36 +152,51 @@ const collisionCheck = () => {
     })
     targetRecs.forEach((target) => {
       if((playerRecs.x < target.right && playerRecs.y < target.bottom) && (playerRecs.right > target.x && playerRecs.bottom > target.y)){
-        console.log('player hit by target')
+       hitByTarget()
+        console.log('Player gets deleted')
       }
     })
-  }
 
-  if(projectiles.length > 0){
-    projectiles = [...projectiles]
-    projectileRecs = projectiles.map((projectile) => {
-      return projectile.getBoundingClientRect()
-    })
-    if(targetRecs.length > 0){
-      projectileRecs.forEach((projectile) => {
-        targetRecs.forEach((target) => {
-          if((projectile.x < target.right && projectile.y < target.bottom) && (projectile.right > target.x && projectile.bottom > target.y)){
-            console.log('target hit by projectile')
-          }
-        })
+
+    if(projectiles.length > 0){
+      projectiles = [...projectiles]
+      projectileRecs = projectiles.map((projectile) => {
+        return projectile.getBoundingClientRect()
       })
+      if(targetRecs.length > 0){
+        projectileRecs.forEach((projectile) => {
+          targetRecs.forEach((target) => {
+            if((projectile.x < target.right && projectile.y < target.bottom) && (projectile.right > target.x && projectile.bottom > target.y)){
+              console.log('target hit by projectile')
+              hitByProjectile()
+            }
+          })
+        })
+      }
     }
-  }
 
 
-
-  
+  }  
 
   window.requestAnimationFrame(collisionCheck)
 }
 
 
 window.requestAnimationFrame(collisionCheck)
+
+
+//Function to call if target is hit by a projectile
+const hitByProjectile = () =>  {
+  player.score += 10
+   const playerScore = document.querySelector('.player-score')
+   playerScore.textContent = player.score
+}
+
+const hitByTarget = () => {
+  playerObject.remove()
+  let gameOverModal = document.querySelector('#game-over')
+  gameOverModal.classList.add('game-over-died')
+}
 
 
 

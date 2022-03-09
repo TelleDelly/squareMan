@@ -72,7 +72,7 @@
 
 @keyframes practiceTarget {
     0%{
-        transform: translateX(0vw);
+        transform: translateX(30vw);
     }
     25%{
         transform: translateX(50vw);
@@ -96,11 +96,11 @@ body{
 }
 
 .target{
-    transform: translate(100%, 100%);
+    transform: translate(150%, 150%);
     background-color: purple;
     height: 35px;
     width: 35px;
-    /*animation: practiceTarget 6s linear 1;*/
+    animation: practiceTarget 6s linear 1;
 }
 
 .player-object{
@@ -117,7 +117,7 @@ body{
 
 .player-score{
     position: absolute;
-    left: 95vw;
+    left: 85vw;
 }
 
 .projectile{
@@ -125,5 +125,21 @@ body{
     width: 15px;
     height: 15px;
     background-color: black;
+}
+
+.game-over-init{
+    display: none;
+}
+
+.game-over-died{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 70vw;
+    height: 50vh;
+    background-color: cadetblue;
+    opacity: 0.8;
+    text-align: center;
 }
 
