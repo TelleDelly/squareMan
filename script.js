@@ -153,7 +153,6 @@ const collisionCheck = () => {
     targetRecs.forEach((target) => {
       if((playerRecs.x < target.right && playerRecs.y < target.bottom) && (playerRecs.right > target.x && playerRecs.bottom > target.y)){
        hitByTarget()
-        console.log('Player gets deleted')
       }
     })
 
@@ -165,8 +164,9 @@ const collisionCheck = () => {
       })
       if(targetRecs.length > 0){
         projectileRecs.forEach((projectile) => {
-          targetRecs.forEach((target) => {
+          targetRecs.forEach((target, index) => {
             if((projectile.x < target.right && projectile.y < target.bottom) && (projectile.right > target.x && projectile.bottom > target.y)){
+              targets[index].remove()
               console.log('target hit by projectile')
               hitByProjectile()
             }
