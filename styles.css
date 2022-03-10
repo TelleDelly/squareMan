@@ -90,6 +90,7 @@ body{
 }
 
 .target{
+    position: relative;
     transform: translate(-150%, -150%);
     background-color: purple;
     height: 35px;

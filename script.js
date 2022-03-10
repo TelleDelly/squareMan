@@ -121,7 +121,6 @@ const sYPORTOFFSET = -15
 const eYPORTOFFSET = 115
 
 
-
 //GLOBAL VARIABLES FOR COLLISION CHECKER FUNCTION
 let targets = null
 let projectiles = null
@@ -146,12 +145,14 @@ const animationList = {
 
 //Object for player data
 const player = {
+  shotsFired: 0,
+  shotsHit: 0,
   score: 0,
 }
 
 //Player Object DOM element
 const playerObject = document.querySelector('.player-object')
-
+const playerScore = document.querySelector('.player-score')
 
 //Event listener callback functions for player object
 const onMouseMove = (e) => {
@@ -162,6 +163,7 @@ const onMouseMove = (e) => {
 const onShootKeyPress = (e) => {
   if(e.key === 'w' || e.key === 'a' || e.key === 's' || e.key ==='d'){
     setTimeout(() => {
+      player.shotsFired++
       let projectile = document.createElement('div')
       projectile.classList.add('projectile')
       projectile.style.animation = `${animationList[e.key]} 1s linear 1`
@@ -230,23 +232,39 @@ const collisionCheck = () => {
 //Function to call if target is hit by a projectile
 const hitByProjectile = () =>  {
   player.score += 10
-   const playerScore = document.querySelector('.player-score')
-   playerScore.textContent = player.score
+  player.shotsHit++
+  playerScore.textContent = player.score
 }
 
 const hitByTarget = () => {
   playerObject.remove()
+  
   clearInterval(targetInteval)
   let allTargets = document.querySelectorAll('.target')
-  console.log(allTargets)
+  // console.log(allTargets)
   allTargets.forEach((target) => {
     target.remove()
   })
+
+  playerScore.remove()
+
+  let gameOverScore = document.querySelector('#game-over-score')
+  let shotsFired = document.querySelector('#shots-fired')
+  let shotsHit = document.querySelector('#shots-hit')
+  let accuracy = document.querySelector('#accuracy')
+
+
+  gameOverScore.textContent = `Score: ${player.score}`;
+  shotsFired.textContent = `Shots fired: ${player.shotsFired}`
+  shotsHit.textContent = `Shots hit: ${player.shotsHit}`
+  accuracy.textContent = `Accuracy: ${getAccuracy()}`
+  
+
   let gameOverModal = document.querySelector('#game-over')
   gameOverModal.classList.add('game-over-died')
 }
 
-//Need to complete
+
 const createATarget = () => {
   console.log('made a target')
   let tempTarget = document.createElement('div')
@@ -264,19 +282,6 @@ const keyFrameGenerator = () => {
   let startingYPoint = null;
   let endingYPoint = null
   let keyframeReturn = null;
-
-
-  //I am stop here today brain fried 
-  //Here is my train of thought so I can pick back up tomorrow
-  //I wrote in my notes the possible transformation paths and with use the Element.animate() function to include
-  //the custom keyframes using the startingPointDecsions there are four possible paths to take
-  //1. bottom to top 2. top to bottom 
-  //3. right to left 4. left to right
-  //For now I am going to use a swith statement so I can create an accurate keyframe model
-  //I think I could possibly boil this down to something more simpler but I think the 
-  //switch statement will be just fine seeyah tomorrow
-
-
 
   switch (startingPointDecision) {
     case 'x':
@@ -321,6 +326,14 @@ const keyFrameGenerator = () => {
 
 const randomNumber = (max, min) => {
   return Math.floor(Math.random() * (max - min + 1) + min)
+}
+
+const getAccuracy = () => {
+  if(player.shotsFired > 0){
+    let percentage = `${(player.shotsHit/player.shotsFired).toFixed(2) * 100}%` 
+    return percentage
+  }
+  return "You didn't even get a bullet off?"
 }
 
 const runGame = () => {
