@@ -88,7 +88,7 @@ body{
 }
 
 .target{
-    transform: translate(150%, 150%);
+    transform: translate(-150%, -150%);
     background-color: purple;
     height: 35px;
     width: 35px;
@@ -96,6 +96,7 @@ body{
 }
 
 .player-object{
+    cursor: none;
     position: absolute;
     transform: translate(-50%, -50%);
     width: 40px;

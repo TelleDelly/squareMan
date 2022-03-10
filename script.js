@@ -87,17 +87,38 @@ window.addEventListener('animationend' (e) => {
 
 //GLOBAL STATIC CONSTS
 
+
+//Target constants for duration and iteration see target creation function
+//targetSpeed is time in miliseconds 
+const targetDuration = 3000
+const targetIterations = 1
+
+//Target creation variables
+//Be wary of increasing the number of targets may targets do not reach their full path
+const maxTargets = 5
+//in miliseconds
+const TARGETCREATIONINTERVAL = 1000
+
+
 //X viewport range of posible starting and ending positions
 const sXPORTMAX = 85
 const sXPORTMIN = 15
 const eXPORTMAX = 85
 const eXPORTMIN = 15
 
+//X viewport offsets
+const sXPORTOFFSET = -15
+const eXPORTOFFSET = 115
+
 //Y viewport range of possible starting and ending positions
 const sYPORTMAX = 90
 const sYPORTMIN = 10
 const eYPORTMAX = 90
 const eYPORTMIN = 10
+
+//Y viewport offsets
+const sYPORTOFFSET = -15
+const eYPORTOFFSET = 115
 
 
 
@@ -219,29 +240,77 @@ const hitByTarget = () => {
   gameOverModal.classList.add('game-over-died')
 }
 
+//Need to complete
 const createATarget = () => {
+  console.log('made a target')
   let tempTarget = document.createElement('div')
   tempTarget.classList.add('target')
+  tempTarget.animate(keyFrameGenerator(), {duration: targetDuration, iterations: targetIterations})
+  document.body.append(tempTarget)
 
 }
 
 const keyFrameGenerator = () => {
   let randStart = randomNumber(3,0)
   let startingPointDecision = startingPointChoice[randStart]
-  let startingXpoint = null;
-  let endingXpoint = null;
-  let startingYpoint = null;
+  let startingXPoint = null;
+  let endingXPoint = null;
+  let startingYPoint = null;
   let endingYPoint = null
+  let keyframeReturn = null;
 
 
-  if(startingPointDecision === startingPointChoice[0] || startingPointDecision === startingPointChoice[2]){
-    startingPoint = randomNumber(sXPORTMAX, sXPORTMIN)
+  //I am stop here today brain fried 
+  //Here is my train of thought so I can pick back up tomorrow
+  //I wrote in my notes the possible transformation paths and with use the Element.animate() function to include
+  //the custom keyframes using the startingPointDecsions there are four possible paths to take
+  //1. bottom to top 2. top to bottom 
+  //3. right to left 4. left to right
+  //For now I am going to use a swith statement so I can create an accurate keyframe model
+  //I think I could possibly boil this down to something more simpler but I think the 
+  //switch statement will be just fine seeyah tomorrow
+
+
+
+  switch (startingPointDecision) {
+    case 'x':
+      // console.log('start from x')
+      startingXPoint = randomNumber(sXPORTMAX, sXPORTMIN)
+      endingXPoint = randomNumber(eXPORTMAX, eXPORTMIN)
+      keyframeReturn = [
+        {transform: `translate(${startingXPoint}vw, ${sYPORTOFFSET}vh)`},
+        {transform: `translate(${endingXPoint}vw, ${eYPORTOFFSET}vh)`}
+      ]
+      break;
+    case 'y':
+      // console.log('start from y')
+      startingYPoint = randomNumber(sYPORTMAX, sYPORTMIN)
+      endingYPoint = randomNumber(eYPORTMAX, eYPORTMIN)
+      keyframeReturn = [
+        {transform: `translate(${sXPORTOFFSET}vw, ${startingYPoint}vh)`},
+        {transform: `translate(${eXPORTOFFSET}vw, ${endingYPoint}vh)`}
+      ]
+      break;
+    case 'oX':
+      // console.log('starting from oX')
+      startingXPoint = randomNumber(sXPORTMAX, sXPORTMIN)
+      endingXPoint = randomNumber(eXPORTMAX, eXPORTMIN)
+      keyframeReturn = [
+        {transform: `translate(${startingXPoint}vw, ${eYPORTOFFSET}vh)`},
+        {transform: `translate(${endingXPoint}vw, ${sYPORTOFFSET}vh)`}
+      ]
+      break;
+    case 'oY':
+      // console.log('starting from oY')
+      startingYPoint = randomNumber(sYPORTMAX, sYPORTMIN)
+      endingYPoint = randomNumber(eYPORTMAX, eYPORTMIN)
+      keyframeReturn = [
+        {transform: `translate(${eXPORTOFFSET}vw, ${startingYPoint}vh)`},
+        {transform: `translate(${sXPORTOFFSET}vw, ${endingYPoint}vh)`}
+      ]
+      break;
   }
-
-  if(startingPointDecision === startingPointChoice[1] || startingPointDecision === startingPointChoice[3]){
-
-  }
-  
+  return keyframeReturn;
 }
 
 const randomNumber = (max, min) => {
@@ -249,6 +318,12 @@ const randomNumber = (max, min) => {
 }
 
 const runGame = () => {
+  createATarget()
+  createATarget()
+  createATarget()
+  createATarget()
+  createATarget()
+
   window.requestAnimationFrame(collisionCheck)
 }
 
