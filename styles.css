@@ -70,6 +70,7 @@
     }
 }
 
+/*  Depreciated no longer needed
 @keyframes practiceTarget {
     0%{
         transform: translate(30vw, 25vh);
@@ -79,6 +80,7 @@
         transform: translate(110vw , 90vh);
     }
 }
+*/
 
 body{
     background-color: aquamarine;
@@ -125,6 +127,8 @@ body{
 }
 
 .game-over-died{
+    margin: auto;
+    margin-top: 15%;
     display: flex;
     justify-content: center;
     align-items: center;

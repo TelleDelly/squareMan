@@ -97,8 +97,8 @@ const targetIterations = 1
 //Be wary of increasing the number of targets may targets do not reach their full path
 const maxTargets = 5
 //in miliseconds
-const TARGETCREATIONINTERVAL = 1000
-
+const TARGETCREATIONINTERVAL = 900
+let targetInteval = null
 
 //X viewport range of posible starting and ending positions
 const sXPORTMAX = 85
@@ -236,6 +236,12 @@ const hitByProjectile = () =>  {
 
 const hitByTarget = () => {
   playerObject.remove()
+  clearInterval(targetInteval)
+  let allTargets = document.querySelectorAll('.target')
+  console.log(allTargets)
+  allTargets.forEach((target) => {
+    target.remove()
+  })
   let gameOverModal = document.querySelector('#game-over')
   gameOverModal.classList.add('game-over-died')
 }
@@ -319,7 +325,7 @@ const randomNumber = (max, min) => {
 
 const runGame = () => {
  
-  let targetInteval = setInterval(createATarget, TARGETCREATIONINTERVAL)
+  targetInteval = setInterval(createATarget, TARGETCREATIONINTERVAL)
 
   window.requestAnimationFrame(collisionCheck)
 }
