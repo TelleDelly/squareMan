@@ -318,11 +318,8 @@ const randomNumber = (max, min) => {
 }
 
 const runGame = () => {
-  createATarget()
-  createATarget()
-  createATarget()
-  createATarget()
-  createATarget()
+ 
+  let targetInteval = setInterval(createATarget, TARGETCREATIONINTERVAL)
 
   window.requestAnimationFrame(collisionCheck)
 }
