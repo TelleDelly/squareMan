@@ -6,10 +6,10 @@
         transform: translateY(15vh);
     }
     50%{
-        transform: translateY(60vh);
+        transform: translateY(45vh);
     }
     75%{
-        transform: translateY(105vh);
+        transform: translateY(80vh);
     }
     100%{
         transform: translateY(110vh);
@@ -24,10 +24,10 @@
         transform: translateY(-15vh);
     }
     50%{
-        transform: translateY(-60vh);
+        transform: translateY(-45vh);
     }
     75%{
-        transform: translateY(-105vh);
+        transform: translateY(-80vh);
     }
     100%{
         transform: translateY(-110vh);
@@ -42,10 +42,10 @@
         transform: translateX(15vw);
     }
     50%{
-        transform: translateX(60vw);
+        transform: translateX(45vw);
     }
     75%{
-        transform: translateX(105vw);
+        transform: translateX(80vw);
     }
     100%{
         transform: translateX(110vw);
@@ -60,10 +60,10 @@
         transform: translateX(-15vw);
     }
     50%{
-        transform: translateX(-60vw);
+        transform: translateX(-45vw);
     }
     75%{
-        transform: translateX(-105vw);
+        transform: translateX(-80vw);
     }
     100%{
         transform: translateX(-110vw);
@@ -82,15 +82,23 @@
 }
 */
 
+.welcome-main{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    
+}
+
+
 body{
-    background-color: aquamarine;
+    background-color: aqua;
     overflow: hidden;
     margin: 0;
     padding: 0;
 }
 
 .target{
-    position: relative;
+    position: absolute;
     transform: translate(-150%, -150%);
     background-color: purple;
     height: 35px;
@@ -117,7 +125,7 @@ body{
 }
 
 .projectile{
-    position: absolute;
+    position: fixed;
     width: 15px;
     height: 15px;
     background-color: black;
