@@ -1,0 +1,45 @@
+html{
+    background-image: linear-gradient(white, black);
+    height: 100%;
+    background-size: cover;
+}
+
+body{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Syne Mono', monospace;
+}
+
+.welcome-main{
+    height: 80vh;
+    width: 60vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.welcome-main h1{
+    font-size: 60px;
+    margin-bottom: 0px;
+}
+
+.welcome-main h2{
+    font-size: 48px;
+    padding-top: 0;
+    margin-top: 0px;
+}
+
+.welcome-main img{
+    height: 40%;
+}
+
+.welcome-main a{
+    text-decoration: none;
+    border: 2px solid gold;
+    padding: 12px;
+    margin: 1rem;
+    color: whitesmoke;
+    background-color: navy;
+}
