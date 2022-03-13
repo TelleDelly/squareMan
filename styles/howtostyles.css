@@ -1,0 +1,15 @@
+body{
+    font-family: 'Syne Mono', monospace;
+    background-color: #BFBFBF;
+}
+
+.main-content{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+
+.columns {
+    text-align: center;
+}

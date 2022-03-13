@@ -33,6 +33,7 @@ body{
 
 .welcome-main img{
     height: 40%;
+    margin-bottom: 5px;
 }
 
 .welcome-main a{
