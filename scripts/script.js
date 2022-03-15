@@ -271,23 +271,27 @@ const hitByProjectile = () =>  {
 
 const hitByTarget = () => {
   playerObject.remove()
-  
-  clearInterval(targetInteval)
-  clearInterval(difficultyInterval)
+  playerScore.remove()
+
   let allTargets = document.querySelectorAll('.target')
   // console.log(allTargets)
   allTargets.forEach((target) => {
     target.remove()
   })
 
-  playerScore.remove()
+  clearInterval(targetInteval)
+  clearInterval(difficultyInterval)
 
+  setHighScore()
+
+  let highScore = document.querySelector('#highscore')
   let gameOverScore = document.querySelector('#game-over-score')
   let shotsFired = document.querySelector('#shots-fired')
   let shotsHit = document.querySelector('#shots-hit')
   let accuracy = document.querySelector('#accuracy')
 
 
+  highScore.textContent = `Highscore ${localStorage.getItem('highscore')}`
   gameOverScore.textContent = `Score: ${player.score}`;
   shotsFired.textContent = `Shots fired: ${player.shotsFired}`
   shotsHit.textContent = `Shots hit: ${player.shotsHit}`
@@ -376,6 +380,12 @@ const increaseDifficulty = () => {
   if(targetDuration > 1500){
     console.log('stuff got harder')
     targetDuration -= 300
+  }
+}
+
+const setHighScore = () => {
+  if(player.score > localStorage.getItem('highscore')){
+  localStorage.setItem("highscore", player.score)
   }
 }
 
