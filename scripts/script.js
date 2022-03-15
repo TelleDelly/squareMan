@@ -284,6 +284,8 @@ const hitByTarget = () => {
 
   setHighScore()
 
+  let acc = getAccuracy()
+
   let highScore = document.querySelector('#highscore')
   let gameOverScore = document.querySelector('#game-over-score')
   let shotsFired = document.querySelector('#shots-fired')
@@ -295,7 +297,7 @@ const hitByTarget = () => {
   gameOverScore.textContent = `Score: ${player.score}`;
   shotsFired.textContent = `Shots fired: ${player.shotsFired}`
   shotsHit.textContent = `Shots hit: ${player.shotsHit}`
-  accuracy.textContent = `Accuracy: ${getAccuracy()}`
+  accuracy.textContent = `Accuracy: ${acc}`
   
 
   let gameOverModal = document.querySelector('#game-over')
