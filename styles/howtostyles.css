@@ -13,3 +13,19 @@ body{
 .columns {
     text-align: center;
 }
+
+.button-div{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin-top: 1rem;
+}
+
+a{
+    text-decoration: none;
+    border: 2px solid gold;
+    padding: 12px;
+    margin: 1rem;
+    color: whitesmoke;
+    background-color: navy;
+}

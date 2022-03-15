@@ -170,12 +170,23 @@ const onShootKeyPress = (e) => {
       playerObject.appendChild(projectile)
     }, 200)
   }
-} 
+}
+
+//not feasiable
+const onRotateKeyPress = (e)=> {
+  if(e.key === 'q'){
+    playerObject.style.transform = "rotate(90deg)"  
+  }
+  if(e.key === 'e'){
+    playerObject.style.transform = 'rotate(-90deg)'
+  }
+}
 
 
 //Event listenters for player objectw
 document.addEventListener('mousemove', onMouseMove)
 document.addEventListener('keypress', onShootKeyPress)
+document.addEventListener('keypress',onRotateKeyPress)
 
 //Event listener for transitionEnd
 document.addEventListener('animationend',(e) => {
