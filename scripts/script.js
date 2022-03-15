@@ -90,8 +90,11 @@ window.addEventListener('animationend' (e) => {
 
 //Target constants for duration and iteration see target creation function
 //targetSpeed is time in miliseconds 
-const targetDuration = 3000
+let targetDuration = 3500
 const targetIterations = 1
+
+//Difficulty increase 
+const DIFFICULTYINCREASE = 15000
 
 //Target creation variables
 //Be wary of increasing the number of targets may targets do not reach their full path
@@ -347,9 +350,16 @@ const getAccuracy = () => {
   return "You didn't even get a bullet off?"
 }
 
+const increaseDifficulty = () => {
+  if(targetDuration > 1500){
+    targetDuration -= 300
+  }
+}
+
 const runGame = () => {
  
   targetInteval = setInterval(createATarget, TARGETCREATIONINTERVAL)
+  difficultyInterval = setInterval(increaseDifficulty, DIFFICULTYINCREASE)
 
   window.requestAnimationFrame(collisionCheck)
 }
