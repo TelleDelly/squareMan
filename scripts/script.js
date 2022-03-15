@@ -138,6 +138,16 @@ const startingPointChoice = [
 ]
 
 
+//Possible color for target and projectiles
+const pColors = {
+  'a': 'purple', 
+  'w': 'red', 
+  's': 'green', 
+  'd': 'yellow',
+}
+
+const tColors = ['purple','red','green','yellow']
+
 //Animation list
 const animationList = {
   'w': 'upshot',
@@ -169,27 +179,29 @@ const onShootKeyPress = (e) => {
       player.shotsFired++
       let projectile = document.createElement('div')
       projectile.classList.add('projectile')
+      projectile.style.backgroundColor = pColors[e.key]
       projectile.style.animation = `${animationList[e.key]} 1s linear 1`
       playerObject.appendChild(projectile)
-    }, 200)
+    }, 500)
   }
+  
 }
 
-//not feasiable
-const onRotateKeyPress = (e)=> {
-  if(e.key === 'q'){
-    playerObject.style.transform = "rotate(90deg)"  
-  }
-  if(e.key === 'e'){
-    playerObject.style.transform = 'rotate(-90deg)'
-  }
-}
+//may be a bit too much
+// const onRotateKeyPress = (e)=> {
+//   if(e.key === 'q'){
+//     playerObject.style.transform = "rotate(90deg)"  
+//   }
+//   if(e.key === 'e'){
+//     playerObject.style.transform = 'rotate(-90deg)'
+//   }
+// }
 
 
 //Event listenters for player objectw
 document.addEventListener('mousemove', onMouseMove)
 document.addEventListener('keypress', onShootKeyPress)
-document.addEventListener('keypress',onRotateKeyPress)
+
 
 //Event listener for transitionEnd
 document.addEventListener('animationend',(e) => {
@@ -229,12 +241,18 @@ const collisionCheck = () => {
       projectileRecs = projectiles.map((projectile) => {
         return projectile.getBoundingClientRect()
       })
-      projectileRecs.forEach((projectile) => {
+      projectileRecs.forEach((projectile, pIndex) => {
         targetRecs.forEach((target, index) => {
           if((projectile.x < target.right && projectile.y < target.bottom) && (projectile.right > target.x && projectile.bottom > target.y)){
-            targets[index].remove()
-            // console.log('target hit by projectile')
-            hitByProjectile()
+            // console.log(targets[index].style.backgroundColor)
+            // console.log(projectiles[pIndex].style.backgroundColor)
+            if(targets[index].style.backgroundColor === projectiles[pIndex].style.backgroundColor){
+              targets[index].remove()
+              projectiles[pIndex].remove()
+              hitByProjectile()
+            } else {
+              projectiles[pIndex].remove()
+            }
           }
         })
       })
@@ -254,6 +272,7 @@ const hitByTarget = () => {
   playerObject.remove()
   
   clearInterval(targetInteval)
+  clearInterval(difficultyInterval)
   let allTargets = document.querySelectorAll('.target')
   // console.log(allTargets)
   allTargets.forEach((target) => {
@@ -280,9 +299,11 @@ const hitByTarget = () => {
 
 
 const createATarget = () => {
-  console.log('made a target')
+  // console.log('made a target')
+  let randomColor = randomNumber(3,0)
   let tempTarget = document.createElement('div')
   tempTarget.classList.add('target')
+  tempTarget.style.backgroundColor = tColors[randomColor]
   tempTarget.animate(keyFrameGenerator(), {duration: targetDuration, iterations: targetIterations})
   document.body.append(tempTarget)
 
@@ -352,12 +373,15 @@ const getAccuracy = () => {
 
 const increaseDifficulty = () => {
   if(targetDuration > 1500){
+    console.log('stuff got harder')
     targetDuration -= 300
   }
 }
 
 const runGame = () => {
- 
+
+  targetDuration = 3500
+
   targetInteval = setInterval(createATarget, TARGETCREATIONINTERVAL)
   difficultyInterval = setInterval(increaseDifficulty, DIFFICULTYINCREASE)
 

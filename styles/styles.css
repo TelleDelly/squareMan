@@ -110,7 +110,10 @@ body{
     display: flex;
     justify-content: center;
     align-items: center;
-
+    border-top: 8px solid red;
+    border-right: 8px solid yellow;
+    border-bottom: 8px solid green;
+    border-left: 8px solid purple;
 }
 
 .player-score{
