@@ -87,6 +87,8 @@ window.addEventListener('animationend' (e) => {
 
 //GLOBAL STATIC CONSTS
 
+//Projectile buffer in miliseconds
+const PROJECTILEBUFFER = 200
 
 //Target constants for duration and iteration see target creation function
 //targetSpeed is time in miliseconds 
@@ -175,6 +177,7 @@ const onMouseMove = (e) => {
 
 const onShootKeyPress = (e) => {
   if(e.key === 'w' || e.key === 'a' || e.key === 's' || e.key ==='d'){
+    if(!e.repeat){
     setTimeout(() => {
       player.shotsFired++
       let projectile = document.createElement('div')
@@ -182,7 +185,8 @@ const onShootKeyPress = (e) => {
       projectile.style.backgroundColor = pColors[e.key]
       projectile.style.animation = `${animationList[e.key]} 1s linear 1`
       playerObject.appendChild(projectile)
-    }, 500)
+    }, PROJECTILEBUFFER)
+  }
   }
   
 }
@@ -213,9 +217,6 @@ document.addEventListener('animationend',(e) => {
   }
 }) 
 
-
-
-//I am going to try and use requestAnimationFrame to do all my collision checks
 //TODO: Must clean up this function as it will run every single frame refresh
 
 const collisionCheck = () => {
