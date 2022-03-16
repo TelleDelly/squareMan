@@ -95,11 +95,14 @@ const PROJECTILEBUFFER = 200;
 //Target constants for duration and iteration see target creation function
 //targetSpeed is time in miliseconds
 let targetDuration;
-const MINTARGETDURATION = 1500;
+const MINTARGETDURATION = 1200;
 const targetIterations = 1;
 
+//Target duration decrement will increase the difficulty
+const TARGETDURATIONDECREMENT = 300
+
 //Difficulty increase time in miliseconds
-const DIFFICULTYINCREASE = 15000;
+const DIFFICULTYINCREASE = 16000;
 
 //Target creation variables
 //Be wary of increasing TARGETCREATIONINTERVAL it may not allow targets to reach there full path
@@ -276,7 +279,7 @@ const collisionCheck = () => {
 const hitByProjectile = () => {
   player.score += 10;
   player.shotsHit++;
-  playerScore.textContent = player.score;
+  playerScore.textContent = `Score: ${player.score}`;
 };
 
 const hitByTarget = () => {
@@ -384,20 +387,18 @@ const randomNumber = (max, min) => {
 const getAccuracy = () => {
   if (player.shotsFired > 0) {
     percentageCalculations = player.shotsHit / player.shotsFired;
-    console.log(typeof percentageCalculations);
     percentageCalculations = parseFloat(percentageCalculations) * 100.0;
-    console.log(percentageCalculations);
     percentageCalculations = percentageCalculations.toFixed(1);
     let percentage = `${percentageCalculations}%`;
     return percentage;
   }
-  return "You didn't even get a bullet off?";
+  return "No shot";
 };
 
 const increaseDifficulty = () => {
   if (targetDuration > MINTARGETDURATION) {
-    console.log("stuff got harder");
-    targetDuration -= TARGETPOINTVALUE;
+    console.log('more difficult')
+    targetDuration -= TARGETDURATIONDECREMENT;
   }
 };
 
