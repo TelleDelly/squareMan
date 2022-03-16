@@ -132,6 +132,7 @@ body{
     height: 15px;
     background-color: black;
     border-radius: 2%;
+    border: 1px solid black;
 }
 
 .game-over-init{
@@ -145,10 +146,19 @@ body{
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    width: 70vw;
-    height: 50vh;
+    width: 70%;
+    height: 50%;
     background-color: cadetblue;
     opacity: 0.8;
     text-align: center;
+}
+
+.game-over-died a{
+    text-decoration: none;
+    border: 2px solid gold;
+    padding: 12px;
+    margin: 1rem;
+    color: whitesmoke;
+    background-color: navy;
 }
 

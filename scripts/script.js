@@ -94,7 +94,7 @@ const PROJECTILEBUFFER = 200;
 
 //Target constants for duration and iteration see target creation function
 //targetSpeed is time in miliseconds
-let targetDuration = 3500;
+let targetDuration;
 const MINTARGETDURATION = 1500;
 const targetIterations = 1;
 
