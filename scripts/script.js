@@ -90,330 +90,330 @@ window.addEventListener('animationend' (e) => {
 //Animation request
 
 //Projectile buffer in miliseconds
-const PROJECTILEBUFFER = 200
+const PROJECTILEBUFFER = 200;
 
 //Target constants for duration and iteration see target creation function
-//targetSpeed is time in miliseconds 
-let targetDuration = 3500
-const MINTARGETDURATION = 1500
-const targetIterations = 1
+//targetSpeed is time in miliseconds
+let targetDuration = 3500;
+const MINTARGETDURATION = 1500;
+const targetIterations = 1;
 
 //Difficulty increase time in miliseconds
-const DIFFICULTYINCREASE = 15000
+const DIFFICULTYINCREASE = 15000;
 
 //Target creation variables
 //Be wary of increasing TARGETCREATIONINTERVAL it may not allow targets to reach there full path
 //in miliseconds
-const TARGETCREATIONINTERVAL = 900
-let targetInteval = null
+const TARGETCREATIONINTERVAL = 900;
+let targetInteval = null;
 
 //X viewport range of posible starting and ending positions
-const sXPORTMAX = 85
-const sXPORTMIN = 15
-const eXPORTMAX = 85
-const eXPORTMIN = 15
+const sXPORTMAX = 85;
+const sXPORTMIN = 15;
+const eXPORTMAX = 85;
+const eXPORTMIN = 15;
 
 //X viewport offsets
-const sXPORTOFFSET = -15
-const eXPORTOFFSET = 115
+const sXPORTOFFSET = -15;
+const eXPORTOFFSET = 115;
 
 //Y viewport range of possible starting and ending positions
-const sYPORTMAX = 90
-const sYPORTMIN = 10
-const eYPORTMAX = 90
-const eYPORTMIN = 10
+const sYPORTMAX = 90;
+const sYPORTMIN = 10;
+const eYPORTMAX = 90;
+const eYPORTMIN = 10;
 
 //Y viewport offsets
-const sYPORTOFFSET = -15
-const eYPORTOFFSET = 115
-
+const sYPORTOFFSET = -15;
+const eYPORTOFFSET = 115;
 
 //GLOBAL VARIABLES FOR COLLISION CHECKER FUNCTION
-let targets = null
-let projectiles = null
-let targetRecs = null
-let playerRecs = null
-let projectileRecs = null
-
+let targets = null;
+let projectiles = null;
+let targetRecs = null;
+let playerRecs = null;
+let projectileRecs = null;
 
 //Max index for the following colections containing for items
 //To be used with the randomNumber function
-const COLLECTIONMAX = 3  
+const COLLECTIONMAX = 3;
 
 //Global variables for creating target function
-const startingPointChoice = [
-  'x','y','oX','oY'
-]
-
+const startingPointChoice = ["x", "y", "oX", "oY"];
 
 //Possible color for target and projectiles
 const pColors = {
-  'a': 'purple', 
-  'w': 'red', 
-  's': 'green', 
-  'd': 'yellow',
-}
+  a: "purple",
+  w: "red",
+  s: "green",
+  d: "yellow",
+};
 
-const tColors = ['purple','red','green','yellow']
+const tColors = ["purple", "red", "green", "yellow"];
 
 //Animation list
 const animationList = {
-  'w': 'upshot',
-  'a': 'leftshot',
-  's': 'downshot',
-  'd': 'rightshot',
-}
+  w: "upshot",
+  a: "leftshot",
+  s: "downshot",
+  d: "rightshot",
+};
 
 //Object for player data
 const player = {
   shotsFired: 0,
   shotsHit: 0,
   score: 0,
-}
+};
 
 //Player Object DOM element
-const playerObject = document.querySelector('.player-object')
-const playerScore = document.querySelector('.player-score')
+const playerObject = document.querySelector(".player-object");
+const playerScore = document.querySelector(".player-score");
 
 //Event listener callback functions for player object
 const onMouseMove = (e) => {
-  playerObject.style.left = e.pageX + 'px'
-  playerObject.style.top = e.pageY + 'px'
-}
+  playerObject.style.left = e.pageX + "px";
+  playerObject.style.top = e.pageY + "px";
+};
 
 const onShootKeyPress = (e) => {
-  if(e.key === 'w' || e.key === 'a' || e.key === 's' || e.key ==='d'){
-    if(!e.repeat){
-    setTimeout(() => {
-      player.shotsFired++
-      let projectile = document.createElement('div')
-      projectile.classList.add('projectile')
-      projectile.style.backgroundColor = pColors[e.key]
-      projectile.style.animation = `${animationList[e.key]} 1s linear 1`
-      playerObject.appendChild(projectile)
-    }, PROJECTILEBUFFER)
+  if (e.key === "w" || e.key === "a" || e.key === "s" || e.key === "d") {
+    if (!e.repeat) {
+      setTimeout(() => {
+        player.shotsFired++;
+        let projectile = document.createElement("div");
+        projectile.classList.add("projectile");
+        projectile.style.backgroundColor = pColors[e.key];
+        projectile.style.animation = `${animationList[e.key]} 1s linear 1`;
+        playerObject.appendChild(projectile);
+      }, PROJECTILEBUFFER);
+    }
   }
-  }
-  
-}
+};
 
 //may be a bit too much
 // const onRotateKeyPress = (e)=> {
 //   if(e.key === 'q'){
-//     playerObject.style.transform = "rotate(90deg)"  
+//     playerObject.style.transform = "rotate(90deg)"
 //   }
 //   if(e.key === 'e'){
 //     playerObject.style.transform = 'rotate(-90deg)'
 //   }
 // }
 
-
 //Event listenters for player objectw
-document.addEventListener('mousemove', onMouseMove)
-document.addEventListener('keypress', onShootKeyPress)
-
+document.addEventListener("mousemove", onMouseMove);
+document.addEventListener("keypress", onShootKeyPress);
 
 //Event listener for transitionEnd
-document.addEventListener('animationend',(e) => {
-  if(e.target.classList.contains('projectile')){
-    e.target.remove()
+document.addEventListener("animationend", (e) => {
+  if (e.target.classList.contains("projectile")) {
+    e.target.remove();
   }
-  if(e.target.classList.contains('target')){
-    e.target.remove()
+  if (e.target.classList.contains("target")) {
+    e.target.remove();
   }
-}) 
+});
 
 //TODO: Must clean up this function as it will run every single frame refresh
 
 const collisionCheck = () => {
-  targets = document.querySelectorAll('.target')
-  projectiles = document.querySelectorAll('.projectile')
-  
-  playerRecs = playerObject.getBoundingClientRect()
-  
-  if(targets.length > 0){
-    targets = [...targets]
+  targets = document.querySelectorAll(".target");
+  projectiles = document.querySelectorAll(".projectile");
+
+  playerRecs = playerObject.getBoundingClientRect();
+
+  if (targets.length > 0) {
+    targets = [...targets];
     targetRecs = targets.map((target) => {
-      return target.getBoundingClientRect()
-    })
+      return target.getBoundingClientRect();
+    });
     targetRecs.forEach((target) => {
-      if((playerRecs.x < target.right && playerRecs.y < target.bottom) && (playerRecs.right > target.x && playerRecs.bottom > target.y)){
-       hitByTarget()
+      if (
+        playerRecs.x < target.right &&
+        playerRecs.y < target.bottom &&
+        playerRecs.right > target.x &&
+        playerRecs.bottom > target.y
+      ) {
+        hitByTarget();
       }
-    })
+    });
 
-
-    if(projectiles.length > 0){
-      projectiles = [...projectiles]
+    if (projectiles.length > 0) {
+      projectiles = [...projectiles];
       projectileRecs = projectiles.map((projectile) => {
-        return projectile.getBoundingClientRect()
-      })
+        return projectile.getBoundingClientRect();
+      });
       projectileRecs.forEach((projectile, pIndex) => {
         targetRecs.forEach((target, index) => {
-          if((projectile.x < target.right && projectile.y < target.bottom) && (projectile.right > target.x && projectile.bottom > target.y)){
+          if (
+            projectile.x < target.right &&
+            projectile.y < target.bottom &&
+            projectile.right > target.x &&
+            projectile.bottom > target.y
+          ) {
             // console.log(targets[index].style.backgroundColor)
             // console.log(projectiles[pIndex].style.backgroundColor)
-            if(targets[index].style.backgroundColor === projectiles[pIndex].style.backgroundColor){
-              targets[index].remove()
-              projectiles[pIndex].remove()
-              hitByProjectile()
+            if (
+              targets[index].style.backgroundColor ===
+              projectiles[pIndex].style.backgroundColor
+            ) {
+              targets[index].remove();
+              projectiles[pIndex].remove();
+              hitByProjectile();
             } else {
-              projectiles[pIndex].remove()
+              projectiles[pIndex].remove();
             }
           }
-        })
-      })
+        });
+      });
     }
-  }  
-  window.requestAnimationFrame(collisionCheck)
-}
+  }
+  window.requestAnimationFrame(collisionCheck);
+};
 
 //Function to call if target is hit by a projectile
-const hitByProjectile = () =>  {
-  player.score += 10
-  player.shotsHit++
-  playerScore.textContent = player.score
-}
+const hitByProjectile = () => {
+  player.score += 10;
+  player.shotsHit++;
+  playerScore.textContent = player.score;
+};
 
 const hitByTarget = () => {
-  playerObject.remove()
-  playerScore.remove()
+  playerObject.remove();
+  playerScore.remove();
 
-  let allTargets = document.querySelectorAll('.target')
+  let allTargets = document.querySelectorAll(".target");
   // console.log(allTargets)
   allTargets.forEach((target) => {
-    target.remove()
-  })
+    target.remove();
+  });
 
-  clearInterval(targetInteval)
-  clearInterval(difficultyInterval)
+  clearInterval(targetInteval);
+  clearInterval(difficultyInterval);
 
-  window.cancelAnimationFrame(requestAnimationID)
+  window.cancelAnimationFrame(requestAnimationID);
 
-  setHighScore()
+  setHighScore();
 
-  let accuraccyCalculations = getAccuracy()
+  let accuraccyCalculations = getAccuracy();
 
-  let highScore = document.querySelector('#highscore')
-  let gameOverScore = document.querySelector('#game-over-score')
-  let shotsFired = document.querySelector('#shots-fired')
-  let shotsHit = document.querySelector('#shots-hit')
-  let accuracy = document.querySelector('#accuracy')
+  let highScore = document.querySelector("#highscore");
+  let gameOverScore = document.querySelector("#game-over-score");
+  let shotsFired = document.querySelector("#shots-fired");
+  let shotsHit = document.querySelector("#shots-hit");
+  let accuracy = document.querySelector("#accuracy");
 
-
-  highScore.textContent = `Highscore ${localStorage.getItem('highscore')}`
+  highScore.textContent = `Highscore ${localStorage.getItem("highscore")}`;
   gameOverScore.textContent = `Score: ${player.score}`;
-  shotsFired.textContent = `Shots fired: ${player.shotsFired}`
-  shotsHit.textContent = `Shots hit: ${player.shotsHit}`
-  accuracy.textContent = `Accuracy: ${accuraccyCalculations}`
-  
+  shotsFired.textContent = `Shots fired: ${player.shotsFired}`;
+  shotsHit.textContent = `Shots hit: ${player.shotsHit}`;
+  accuracy.textContent = `Accuracy: ${accuraccyCalculations}`;
 
-  let gameOverModal = document.querySelector('#game-over')
-  gameOverModal.classList.add('game-over-died')
-}
-
+  let gameOverModal = document.querySelector("#game-over");
+  gameOverModal.classList.add("game-over-died");
+};
 
 const createATarget = () => {
-
-  //I am going to get the 3 and zero here because i 
-  let randomColor = randomNumber(COLLECTIONMAX,0)
-  let tempTarget = document.createElement('div')
-  tempTarget.classList.add('target')
-  tempTarget.style.backgroundColor = tColors[randomColor]
-  tempTarget.animate(keyFrameGenerator(), {duration: targetDuration, iterations: targetIterations})
-  document.body.append(tempTarget)
-
-}
+  //I am going to get the 3 and zero here because i
+  let randomColor = randomNumber(COLLECTIONMAX, 0);
+  let tempTarget = document.createElement("div");
+  tempTarget.classList.add("target");
+  tempTarget.style.backgroundColor = tColors[randomColor];
+  tempTarget.animate(keyFrameGenerator(), {
+    duration: targetDuration,
+    iterations: targetIterations,
+  });
+  document.body.append(tempTarget);
+};
 
 const keyFrameGenerator = () => {
-  let randStart = randomNumber(COLLECTIONMAX,0)
-  let startingPointDecision = startingPointChoice[randStart]
+  let randStart = randomNumber(COLLECTIONMAX, 0);
+  let startingPointDecision = startingPointChoice[randStart];
   let startingXPoint = null;
   let endingXPoint = null;
   let startingYPoint = null;
-  let endingYPoint = null
+  let endingYPoint = null;
   let keyframeReturn = null;
 
   switch (startingPointDecision) {
-    case 'x':
+    case "x":
       // console.log('start from x')
-      startingXPoint = randomNumber(sXPORTMAX, sXPORTMIN)
-      endingXPoint = randomNumber(eXPORTMAX, eXPORTMIN)
+      startingXPoint = randomNumber(sXPORTMAX, sXPORTMIN);
+      endingXPoint = randomNumber(eXPORTMAX, eXPORTMIN);
       keyframeReturn = [
-        {transform: `translate(${startingXPoint}vw, ${sYPORTOFFSET}vh)`},
-        {transform: `translate(${endingXPoint}vw, ${eYPORTOFFSET}vh)`}
-      ]
+        { transform: `translate(${startingXPoint}vw, ${sYPORTOFFSET}vh)` },
+        { transform: `translate(${endingXPoint}vw, ${eYPORTOFFSET}vh)` },
+      ];
       break;
-    case 'y':
+    case "y":
       // console.log('start from y')
-      startingYPoint = randomNumber(sYPORTMAX, sYPORTMIN)
-      endingYPoint = randomNumber(eYPORTMAX, eYPORTMIN)
+      startingYPoint = randomNumber(sYPORTMAX, sYPORTMIN);
+      endingYPoint = randomNumber(eYPORTMAX, eYPORTMIN);
       keyframeReturn = [
-        {transform: `translate(${sXPORTOFFSET}vw, ${startingYPoint}vh)`},
-        {transform: `translate(${eXPORTOFFSET}vw, ${endingYPoint}vh)`}
-      ]
+        { transform: `translate(${sXPORTOFFSET}vw, ${startingYPoint}vh)` },
+        { transform: `translate(${eXPORTOFFSET}vw, ${endingYPoint}vh)` },
+      ];
       break;
-    case 'oX':
+    case "oX":
       // console.log('starting from oX')
-      startingXPoint = randomNumber(sXPORTMAX, sXPORTMIN)
-      endingXPoint = randomNumber(eXPORTMAX, eXPORTMIN)
+      startingXPoint = randomNumber(sXPORTMAX, sXPORTMIN);
+      endingXPoint = randomNumber(eXPORTMAX, eXPORTMIN);
       keyframeReturn = [
-        {transform: `translate(${startingXPoint}vw, ${eYPORTOFFSET}vh)`},
-        {transform: `translate(${endingXPoint}vw, ${sYPORTOFFSET}vh)`}
-      ]
+        { transform: `translate(${startingXPoint}vw, ${eYPORTOFFSET}vh)` },
+        { transform: `translate(${endingXPoint}vw, ${sYPORTOFFSET}vh)` },
+      ];
       break;
-    case 'oY':
+    case "oY":
       // console.log('starting from oY')
-      startingYPoint = randomNumber(sYPORTMAX, sYPORTMIN)
-      endingYPoint = randomNumber(eYPORTMAX, eYPORTMIN)
+      startingYPoint = randomNumber(sYPORTMAX, sYPORTMIN);
+      endingYPoint = randomNumber(eYPORTMAX, eYPORTMIN);
       keyframeReturn = [
-        {transform: `translate(${eXPORTOFFSET}vw, ${startingYPoint}vh)`},
-        {transform: `translate(${sXPORTOFFSET}vw, ${endingYPoint}vh)`}
-      ]
+        { transform: `translate(${eXPORTOFFSET}vw, ${startingYPoint}vh)` },
+        { transform: `translate(${sXPORTOFFSET}vw, ${endingYPoint}vh)` },
+      ];
       break;
   }
   return keyframeReturn;
-}
+};
 
 const randomNumber = (max, min) => {
-  return Math.floor(Math.random() * (max - min + 1) + min)
-}
+  return Math.floor(Math.random() * (max - min + 1) + min);
+};
 
 const getAccuracy = () => {
-  if(player.shotsFired > 0){
-    percentageCalculations = player.shotsHit/player.shotsFired
-    console.log(typeof(percentageCalculations))
-    percentageCalculations = parseFloat(percentageCalculations) * 100.0
-    console.log(percentageCalculations)
-    percentageCalculations = percentageCalculations.toFixed(1)
-    let percentage = `${percentageCalculations}%` 
-    return percentage
+  if (player.shotsFired > 0) {
+    percentageCalculations = player.shotsHit / player.shotsFired;
+    console.log(typeof percentageCalculations);
+    percentageCalculations = parseFloat(percentageCalculations) * 100.0;
+    console.log(percentageCalculations);
+    percentageCalculations = percentageCalculations.toFixed(1);
+    let percentage = `${percentageCalculations}%`;
+    return percentage;
   }
-  return "You didn't even get a bullet off?"
-}
+  return "You didn't even get a bullet off?";
+};
 
 const increaseDifficulty = () => {
-  if(targetDuration > MINTARGETDURATION){
-    console.log('stuff got harder')
-    targetDuration -= TARGETPOINTVALUE
+  if (targetDuration > MINTARGETDURATION) {
+    console.log("stuff got harder");
+    targetDuration -= TARGETPOINTVALUE;
   }
-}
+};
 
 const setHighScore = () => {
-  if(player.score > localStorage.getItem('highscore')){
-  localStorage.setItem("highscore", player.score)
+  if (player.score > localStorage.getItem("highscore")) {
+    localStorage.setItem("highscore", player.score);
   }
-}
+};
 
 const runGame = () => {
+  targetDuration = 3500;
 
-  targetDuration = 3500
+  targetInteval = setInterval(createATarget, TARGETCREATIONINTERVAL);
+  difficultyInterval = setInterval(increaseDifficulty, DIFFICULTYINCREASE);
 
-  targetInteval = setInterval(createATarget, TARGETCREATIONINTERVAL)
-  difficultyInterval = setInterval(increaseDifficulty, DIFFICULTYINCREASE)
+  requestAnimationID = window.requestAnimationFrame(collisionCheck);
+};
 
-  requestAnimationID = window.requestAnimationFrame(collisionCheck)
-}
-
-runGame()
-
+runGame();

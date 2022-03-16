@@ -118,6 +118,7 @@ body{
     border-bottom: 8px solid green;
     border-left: 8px solid purple;
     border-radius: 5%;
+    cursor: none;
 }
 
 .player-score{
