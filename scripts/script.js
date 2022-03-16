@@ -28,13 +28,13 @@ If a player is hit or runs into a target the player will lose the game and a gam
 Target:
 Targets will fly in off the screen at "random" determined from an array of possible points and paths using random selection
 Target will have the same speed and will no accelerate during their flight
-There will only be three targets on the screen at any time
+There will only be three targets on the screen at any time  || target distribution is dictated by the interval and pathes of the targets
 Once a target is off screen it will be removed from the page
 If a target is hit by a projectile it will be destroyed and points will be added to the players tally
-If a target is not hit by a projectile no points will be added and the target will be removed from the game
+If a target is not hit by a projectile no points will be added and the target will be removed from the game after it has traveled its path
 
 Game:
-The game objective is to get a highscore or play untill death
+The game objective is to get a highscore or play untill game over
 The player score will be located in the top right of the screen
 It will start at zero and increment for each target destroyed
 */
@@ -43,7 +43,7 @@ It will start at zero and increment for each target destroyed
 /*
 playerObject.style.left will be equal to the cursor x of a mouse move event
 playerObject.style.top will be equal to the cursor y of a mouse move event
-the player object will have a cursor.style of none
+the playerObject will have a cursor.style of none
 the playerObject height and width will be equal
 
 projectiles will be created from the center of the playerObject and will follow an animation transform
@@ -87,20 +87,22 @@ window.addEventListener('animationend' (e) => {
 
 //GLOBAL STATIC CONSTS
 
+//Animation request
+
 //Projectile buffer in miliseconds
 const PROJECTILEBUFFER = 200
 
 //Target constants for duration and iteration see target creation function
 //targetSpeed is time in miliseconds 
 let targetDuration = 3500
+const MINTARGETDURATION = 1500
 const targetIterations = 1
 
-//Difficulty increase 
+//Difficulty increase time in miliseconds
 const DIFFICULTYINCREASE = 15000
 
 //Target creation variables
-//Be wary of increasing the number of targets may targets do not reach their full path
-const maxTargets = 5
+//Be wary of increasing TARGETCREATIONINTERVAL it may not allow targets to reach there full path
 //in miliseconds
 const TARGETCREATIONINTERVAL = 900
 let targetInteval = null
@@ -133,6 +135,10 @@ let targetRecs = null
 let playerRecs = null
 let projectileRecs = null
 
+
+//Max index for the following colections containing for items
+//To be used with the randomNumber function
+const COLLECTIONMAX = 3  
 
 //Global variables for creating target function
 const startingPointChoice = [
@@ -282,9 +288,11 @@ const hitByTarget = () => {
   clearInterval(targetInteval)
   clearInterval(difficultyInterval)
 
+  window.cancelAnimationFrame(requestAnimationID)
+
   setHighScore()
 
-  let acc = getAccuracy()
+  let accuraccyCalculations = getAccuracy()
 
   let highScore = document.querySelector('#highscore')
   let gameOverScore = document.querySelector('#game-over-score')
@@ -297,7 +305,7 @@ const hitByTarget = () => {
   gameOverScore.textContent = `Score: ${player.score}`;
   shotsFired.textContent = `Shots fired: ${player.shotsFired}`
   shotsHit.textContent = `Shots hit: ${player.shotsHit}`
-  accuracy.textContent = `Accuracy: ${acc}`
+  accuracy.textContent = `Accuracy: ${accuraccyCalculations}`
   
 
   let gameOverModal = document.querySelector('#game-over')
@@ -306,8 +314,9 @@ const hitByTarget = () => {
 
 
 const createATarget = () => {
-  // console.log('made a target')
-  let randomColor = randomNumber(3,0)
+
+  //I am going to get the 3 and zero here because i 
+  let randomColor = randomNumber(COLLECTIONMAX,0)
   let tempTarget = document.createElement('div')
   tempTarget.classList.add('target')
   tempTarget.style.backgroundColor = tColors[randomColor]
@@ -317,7 +326,7 @@ const createATarget = () => {
 }
 
 const keyFrameGenerator = () => {
-  let randStart = randomNumber(3,0)
+  let randStart = randomNumber(COLLECTIONMAX,0)
   let startingPointDecision = startingPointChoice[randStart]
   let startingXPoint = null;
   let endingXPoint = null;
@@ -372,16 +381,21 @@ const randomNumber = (max, min) => {
 
 const getAccuracy = () => {
   if(player.shotsFired > 0){
-    let percentage = `${(player.shotsHit/player.shotsFired).toFixed(2) * 100}%` 
+    percentageCalculations = player.shotsHit/player.shotsFired
+    console.log(typeof(percentageCalculations))
+    percentageCalculations = parseFloat(percentageCalculations) * 100.0
+    console.log(percentageCalculations)
+    percentageCalculations = percentageCalculations.toFixed(1)
+    let percentage = `${percentageCalculations}%` 
     return percentage
   }
   return "You didn't even get a bullet off?"
 }
 
 const increaseDifficulty = () => {
-  if(targetDuration > 1500){
+  if(targetDuration > MINTARGETDURATION){
     console.log('stuff got harder')
-    targetDuration -= 300
+    targetDuration -= TARGETPOINTVALUE
   }
 }
 
@@ -398,7 +412,7 @@ const runGame = () => {
   targetInteval = setInterval(createATarget, TARGETCREATIONINTERVAL)
   difficultyInterval = setInterval(increaseDifficulty, DIFFICULTYINCREASE)
 
-  window.requestAnimationFrame(collisionCheck)
+  requestAnimationID = window.requestAnimationFrame(collisionCheck)
 }
 
 runGame()

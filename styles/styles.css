@@ -84,11 +84,12 @@
 
 
 body{
-    background-color: aqua;
+    background-color: rgb(187, 241, 241);
     overflow: hidden;
     margin: 0;
     padding: 0;
     font-family: 'Syne Mono', monospace;
+    
 }
 
 .target{
@@ -97,11 +98,13 @@ body{
     background-color: purple;
     height: 35px;
     width: 35px;
+    border: 3px solid black;
+    border-radius: 10%;
     /*animation: practiceTarget 6s linear 1;*/
 }
 
 .player-object{
-    cursor: none;
+    
     position: absolute;
     transform: translate(-50%, -50%);
     width: 40px;
@@ -114,6 +117,7 @@ body{
     border-right: 8px solid yellow;
     border-bottom: 8px solid green;
     border-left: 8px solid purple;
+    border-radius: 5%;
 }
 
 .player-score{
@@ -126,6 +130,7 @@ body{
     width: 15px;
     height: 15px;
     background-color: black;
+    border-radius: 2%;
 }
 
 .game-over-init{
