@@ -24,8 +24,9 @@ body{
 a{
     text-decoration: none;
     border: 2px solid gold;
+    border-radius: 14%;
     padding: 12px;
     margin: 1rem;
     color: whitesmoke;
-    background-color: navy;
+    background-color: rgb(44, 92, 70);
 }
