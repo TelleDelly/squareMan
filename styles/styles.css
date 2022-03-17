@@ -109,7 +109,7 @@ body{
     transform: translate(-50%, -50%);
     width: 40px;
     height: 40px;
-    background-color: blue;
+    background-color: rgb(96, 184, 143);
     display: flex;
     justify-content: center;
     align-items: center;
