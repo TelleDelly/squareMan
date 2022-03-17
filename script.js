@@ -97,6 +97,7 @@ const PROJECTILEBUFFER = 200;
 let targetDuration;
 const MINTARGETDURATION = 1200;
 const targetIterations = 1;
+const TARGETPOINTVALUE = 10;
 
 //Target duration decrement will increase the difficulty
 const TARGETDURATIONDECREMENT = 300
@@ -277,7 +278,7 @@ const collisionCheck = () => {
 
 //Function to call if target is hit by a projectile
 const hitByProjectile = () => {
-  player.score += 10;
+  player.score += TARGETPOINTVALUE;
   player.shotsHit++;
   playerScore.textContent = `Score: ${player.score}`;
 };
