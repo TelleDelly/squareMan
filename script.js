@@ -213,13 +213,16 @@ const onAnimationEnd = (e) => {
 //   }
 // }
 
-//Event listenters for player objectw
+//Event listenters for player object
 document.addEventListener("mousemove", onMouseMove);
 document.addEventListener("keypress", onShootKeyPress);
 
 //Event listener for transitionEnd
 document.addEventListener("animationend", onAnimationEnd);
 
+
+//Frame by frame callback function used to detect collisons of all game bodies
+//to be used  in game()
 const collisionCheck = () => {
   targets = document.querySelectorAll(".target");
   projectiles = document.querySelectorAll(".projectile");
@@ -285,12 +288,12 @@ const hitByProjectile = () => {
   playerScore.textContent = `Score: ${player.score}`;
 };
 
+//function called when player is hit by target
 const hitByTarget = () => {
   playerObject.remove();
   playerScore.remove();
 
   let allTargets = document.querySelectorAll(".target");
-  // console.log(allTargets)
   allTargets.forEach((target) => {
     target.remove();
   });
@@ -344,7 +347,6 @@ const keyFrameGenerator = () => {
 
   switch (startingPointDecision) {
     case "x":
-      // console.log('start from x')
       startingXPoint = randomNumber(sXPORTMAX, sXPORTMIN);
       endingXPoint = randomNumber(eXPORTMAX, eXPORTMIN);
       keyframeReturn = [
@@ -353,7 +355,6 @@ const keyFrameGenerator = () => {
       ];
       break;
     case "y":
-      // console.log('start from y')
       startingYPoint = randomNumber(sYPORTMAX, sYPORTMIN);
       endingYPoint = randomNumber(eYPORTMAX, eYPORTMIN);
       keyframeReturn = [
@@ -362,7 +363,6 @@ const keyFrameGenerator = () => {
       ];
       break;
     case "oX":
-      // console.log('starting from oX')
       startingXPoint = randomNumber(sXPORTMAX, sXPORTMIN);
       endingXPoint = randomNumber(eXPORTMAX, eXPORTMIN);
       keyframeReturn = [
@@ -371,7 +371,6 @@ const keyFrameGenerator = () => {
       ];
       break;
     case "oY":
-      // console.log('starting from oY')
       startingYPoint = randomNumber(sYPORTMAX, sYPORTMIN);
       endingYPoint = randomNumber(eYPORTMAX, eYPORTMIN);
       keyframeReturn = [
