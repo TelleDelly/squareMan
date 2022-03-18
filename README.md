@@ -6,7 +6,7 @@
 
 A browser based survive or die game with fast flying targets and even faster flying projectiles. Try your hardest to beat your best score and become one with the square
 
-
+---
 ## Technology
 
 This project only uses HTML CSS and vanilla javascript. Assests include a font, one image for the welcome page, and the image in the read me. No other libraries were used
