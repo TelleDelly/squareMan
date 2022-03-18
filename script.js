@@ -165,7 +165,7 @@ const animationList = {
 //Object for player data
 const player = {
   shotsFired: 0,
-  shotsHit: 0,
+  targetHit: 0,
   score: 0,
 };
 
@@ -220,8 +220,6 @@ document.addEventListener("keypress", onShootKeyPress);
 //Event listener for transitionEnd
 document.addEventListener("animationend", onAnimationEnd);
 
-//TODO: Must clean up this function as it will run every single frame refresh
-
 const collisionCheck = () => {
   targets = document.querySelectorAll(".target");
   projectiles = document.querySelectorAll(".projectile");
@@ -233,6 +231,7 @@ const collisionCheck = () => {
     targetRecs = targets.map((target) => {
       return target.getBoundingClientRect();
     });
+
     targetRecs.forEach((target) => {
       if (
         playerRecs.x < target.right &&
@@ -246,19 +245,21 @@ const collisionCheck = () => {
 
     if (projectiles.length > 0) {
       projectiles = [...projectiles];
+      
       projectileRecs = projectiles.map((projectile) => {
         return projectile.getBoundingClientRect();
       });
+      
       projectileRecs.forEach((projectile, pIndex) => {
         targetRecs.forEach((target, index) => {
+          
           if (
             projectile.x < target.right &&
             projectile.y < target.bottom &&
             projectile.right > target.x &&
             projectile.bottom > target.y
           ) {
-            // console.log(targets[index].style.backgroundColor)
-            // console.log(projectiles[pIndex].style.backgroundColor)
+
             if (
               targets[index].style.backgroundColor ===
               projectiles[pIndex].style.backgroundColor
@@ -280,7 +281,7 @@ const collisionCheck = () => {
 //Function to call if target is hit by a projectile
 const hitByProjectile = () => {
   player.score += TARGETPOINTVALUE;
-  player.shotsHit++;
+  player.targetHit++;
   playerScore.textContent = `Score: ${player.score}`;
 };
 
@@ -312,7 +313,7 @@ const hitByTarget = () => {
   highScore.textContent = `Highscore ${localStorage.getItem("highscore")}`;
   gameOverScore.textContent = `Score: ${player.score}`;
   shotsFired.textContent = `Shots fired: ${player.shotsFired}`;
-  shotsHit.textContent = `Shots hit: ${player.shotsHit}`;
+  shotsHit.textContent = `Target hit: ${player.targetHit}`;
   accuracy.textContent = `Accuracy: ${accuraccyCalculations}`;
 
   let gameOverModal = document.querySelector("#game-over");
@@ -388,7 +389,7 @@ const randomNumber = (max, min) => {
 
 const getAccuracy = () => {
   if (player.shotsFired > 0) {
-    percentageCalculations = player.shotsHit / player.shotsFired;
+    percentageCalculations = player.targetHit / player.shotsFired;
     percentageCalculations = parseFloat(percentageCalculations) * 100.0;
     percentageCalculations = percentageCalculations.toFixed(1);
     let percentage = `${percentageCalculations}%`;
