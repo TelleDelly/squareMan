@@ -107,7 +107,7 @@ const DIFFICULTYINCREASE = 16000;
 //Be wary of increasing TARGETCREATIONINTERVAL it may not allow targets to reach there full path
 //in miliseconds
 let TARGETCREATIONINTERVAL = 900;
-const TARGETINTERVALDECREMENT = 70;
+const TARGETINTERVALDECREMENT = 120;
 let targetInteval = null;
 
 //X viewport range of posible starting and ending positions
