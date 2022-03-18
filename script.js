@@ -27,7 +27,7 @@ If a player is hit or runs into a target the player will lose the game and a gam
 
 Target:
 Targets will fly in off the screen at "random" determined from an array of possible points and paths using random selection
-Target will have the same speed and will no accelerate during their flight
+Target will have the same speed and will not accelerate during their flight
 There will only be three targets on the screen at any time  || target distribution is dictated by the interval and pathes of the targets
 Once a target is off screen it will be removed from the page
 If a target is hit by a projectile it will be destroyed and points will be added to the players tally
@@ -87,8 +87,6 @@ window.addEventListener('animationend' (e) => {
 
 //GLOBAL STATIC CONSTS
 
-//Animation request
-
 //Projectile buffer in miliseconds
 const PROJECTILEBUFFER = 200;
 
@@ -108,7 +106,8 @@ const DIFFICULTYINCREASE = 16000;
 //Target creation variables
 //Be wary of increasing TARGETCREATIONINTERVAL it may not allow targets to reach there full path
 //in miliseconds
-const TARGETCREATIONINTERVAL = 900;
+let TARGETCREATIONINTERVAL = 900;
+const TARGETINTERVALDECREMENT = 70;
 let targetInteval = null;
 
 //X viewport range of posible starting and ending positions
@@ -146,14 +145,14 @@ const COLLECTIONMAX = 3;
 const startingPointChoice = ["x", "y", "oX", "oY"];
 
 //Possible color for target and projectiles
+const tColors = ["purple", "red", "green", "yellow"];
+
 const pColors = {
   a: "purple",
   w: "red",
   s: "green",
   d: "yellow",
 };
-
-const tColors = ["purple", "red", "green", "yellow"];
 
 //Animation list
 const animationList = {
@@ -195,6 +194,15 @@ const onShootKeyPress = (e) => {
   }
 };
 
+const onAnimationEnd = (e) => {
+  if (e.target.classList.contains("projectile")) {
+    e.target.remove();
+  }
+  if (e.target.classList.contains("target")) {
+    e.target.remove();
+  }
+}
+
 //may be a bit too much
 // const onRotateKeyPress = (e)=> {
 //   if(e.key === 'q'){
@@ -210,14 +218,7 @@ document.addEventListener("mousemove", onMouseMove);
 document.addEventListener("keypress", onShootKeyPress);
 
 //Event listener for transitionEnd
-document.addEventListener("animationend", (e) => {
-  if (e.target.classList.contains("projectile")) {
-    e.target.remove();
-  }
-  if (e.target.classList.contains("target")) {
-    e.target.remove();
-  }
-});
+document.addEventListener("animationend", onAnimationEnd);
 
 //TODO: Must clean up this function as it will run every single frame refresh
 
@@ -399,6 +400,7 @@ const getAccuracy = () => {
 const increaseDifficulty = () => {
   if (targetDuration > MINTARGETDURATION) {
     targetDuration -= TARGETDURATIONDECREMENT;
+    TARGETCREATIONINTERVAL -= TARGETINTERVALDECREMENT
   }
 };
 
