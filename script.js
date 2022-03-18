@@ -398,7 +398,6 @@ const getAccuracy = () => {
 
 const increaseDifficulty = () => {
   if (targetDuration > MINTARGETDURATION) {
-    console.log('more difficult')
     targetDuration -= TARGETDURATIONDECREMENT;
   }
 };
@@ -414,6 +413,9 @@ const runGame = () => {
 
   targetInteval = setInterval(createATarget, TARGETCREATIONINTERVAL);
   difficultyInterval = setInterval(increaseDifficulty, DIFFICULTYINCREASE);
+  
+  playerObject.style.left = "50vw";
+  playerObject.style.top = "50vh";
 
   requestAnimationID = window.requestAnimationFrame(collisionCheck);
 };
