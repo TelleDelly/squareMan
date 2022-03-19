@@ -106,7 +106,7 @@ const DIFFICULTYINCREASE = 16000;
 //Target creation variables
 //Be wary of increasing TARGETCREATIONINTERVAL it may not allow targets to reach there full path
 //in miliseconds
-
+let TARGETCREATIONINTERVAL = 900;
 const TARGETINTERVALDECREMENT = 120;
 let targetInteval = null;
 let difficultyInterval = null
@@ -411,7 +411,7 @@ const runGame = () => {
   let playerRecs = null;
   let projectileRecs = null;
 
-  let TARGETCREATIONINTERVAL = 900;
+
   
   targetDuration = 3500;
 
