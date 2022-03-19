@@ -106,9 +106,10 @@ const DIFFICULTYINCREASE = 16000;
 //Target creation variables
 //Be wary of increasing TARGETCREATIONINTERVAL it may not allow targets to reach there full path
 //in miliseconds
-let TARGETCREATIONINTERVAL = 900;
+
 const TARGETINTERVALDECREMENT = 120;
 let targetInteval = null;
+let difficultyInterval = null
 
 //X viewport range of posible starting and ending positions
 const sXPORTMAX = 85;
@@ -129,13 +130,6 @@ const eYPORTMIN = 10;
 //Y viewport offsets
 const sYPORTOFFSET = -15;
 const eYPORTOFFSET = 115;
-
-//GLOBAL VARIABLES FOR COLLISION CHECKER FUNCTION
-let targets = null;
-let projectiles = null;
-let targetRecs = null;
-let playerRecs = null;
-let projectileRecs = null;
 
 //Max index for the following colections containing for items
 //To be used with the randomNumber function
@@ -411,6 +405,14 @@ const setHighScore = () => {
 };
 
 const runGame = () => {
+  let targets = null;
+  let projectiles = null;
+  let targetRecs = null;
+  let playerRecs = null;
+  let projectileRecs = null;
+
+  let TARGETCREATIONINTERVAL = 900;
+  
   targetDuration = 3500;
 
   targetInteval = setInterval(createATarget, TARGETCREATIONINTERVAL);
