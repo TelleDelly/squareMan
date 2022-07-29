@@ -88,7 +88,7 @@ window.addEventListener('animationend' (e) => {
 //GLOBAL STATIC CONSTS
 
 //Projectile buffer in miliseconds
-const PROJECTILEBUFFER = 200;
+const PROJECTILEBUFFER = 0;
 
 //Target constants for duration and iteration see target creation function
 //targetSpeed is time in miliseconds
