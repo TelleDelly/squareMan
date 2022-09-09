@@ -16,7 +16,7 @@ This project only uses HTML CSS and vanilla javascript. Assests include a font, 
 ## Try it out!
 
 [Play Square Man Today!!!](https://telledelly.github.io/squareMan/index.html)
-Use the mouse wheel for movement and the wasd keys to shoot projectiles.
+Use the mouse for movement and the wasd keys to shoot projectiles.
 Make sure you hit the correct target with the correct projectile. All rules and controls can be found on the rule page. Brower based only. Mouse or trackpad required
 
 ---
