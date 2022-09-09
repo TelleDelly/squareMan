@@ -20,16 +20,6 @@ Use the mouse for movement and the wasd keys to shoot projectiles.
 Make sure you hit the correct target with the correct projectile. All rules and controls can be found on the rule page. Brower based only. Mouse or trackpad required
 
 ---
-## Future Work
-
-Coming soon:
-- Sound Effects
-- Power ups
-- Mobile Version
-- Different Targets
-- Different Levels
-
----
 ## Author
 
 This repo was made by and is maintained by TelleDelly(Martin Wilson)
